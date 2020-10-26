@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\URL;
 |
 */
 
-
+if (App::environment('production')) {
+    URL::forceScheme('https');
+}
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -35,7 +37,3 @@ Route::post('loan-apps', 'App\Http\Controllers\LoanAppController@store');
 Route::put('loan-apps/{loanApp}', 'App\Http\Controllers\LoanAppController@update');
  
 Route::delete('loan-apps/{loanApp}', 'App\Http\Controllers\LoanAppController@delete');
-
-if (App::environment('production')) {
-    URL::forceScheme('https');
-}
