@@ -83,7 +83,7 @@ class Main extends Component {
 
     handleDelete() {
         const currentLoanApp = this.state.currentLoanApp;
-        fetch( 'api/loan-apps/' + this.state.currentLoanApp.id, 
+        fetch( '/api/loan-apps/' + this.state.currentLoanApp.id, 
             { method: 'delete' })
             .then(response => {
               /* Duplicate the array and filter out the item to be deleted */
