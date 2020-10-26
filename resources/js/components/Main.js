@@ -56,7 +56,7 @@ class Main extends Component {
     handleAddLoanApp(loanApp) {
      
         /*Fetch API for post request */
-        fetch('api/loan-apps', {
+        fetch('/api/loan-apps', {
             method:'post',
             mode: 'cors', 
             cache: 'no-cache', 
@@ -99,7 +99,7 @@ class Main extends Component {
     handleUpdate(loanApp) {
  
         const currentLoanApp = this.state.currentLoanApp;
-        fetch( 'api/loan-apps/' + currentLoanApp.id, {
+        fetch( '/api/loan-apps/' + currentLoanApp.id, {
             method:'put',
             headers: {
               'Accept': 'application/json',
