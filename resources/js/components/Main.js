@@ -56,12 +56,11 @@ class Main extends Component {
     handleAddLoanApp(loanApp) {
      
         /*Fetch API for post request */
-        fetch( 'api/loan-apps/', {
+        fetch('https://freedom-forever.herokuapp.com/api/loan-apps/', {
             method:'post',
             mode: 'cors', 
             cache: 'no-cache', 
             credentials: 'same-origin', 
-            rejectUnauthorized: false,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
