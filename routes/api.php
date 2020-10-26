@@ -27,12 +27,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // CRUD Routes
 
-Route::get('loan-apps/', 'App\Http\Controllers\LoanAppController@index');
+Route::get('loan-apps', 'App\Http\Controllers\LoanAppController@index');
  
 Route::get('loan-apps/{loanApp}', 'App\Http\Controllers\LoanAppController@show');
   
  
-Route::post('loan-apps/', 'App\Http\Controllers\LoanAppController@store');
+Route::post('loan-apps', 'App\Http\Controllers\LoanAppController@store');
  
 Route::put('loan-apps/{loanApp}', 'App\Http\Controllers\LoanAppController@update');
  
