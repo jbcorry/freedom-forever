@@ -56,7 +56,7 @@ class Main extends Component {
     handleAddLoanApp(loanApp) {
      
         /*Fetch API for post request */
-        fetch('api/loan-apps/', {
+        fetch('api/loan-apps', {
             method:'post',
             mode: 'cors', 
             cache: 'no-cache', 
