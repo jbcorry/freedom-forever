@@ -60,6 +60,8 @@ class Main extends Component {
             method:'post',
             mode: 'cors', 
             cache: 'no-cache', 
+            credentials: 'same-origin', 
+            rejectUnauthorized: false,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
