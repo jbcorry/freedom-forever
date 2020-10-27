@@ -5,6 +5,8 @@ import CreateLoanApp from './CreateLoanApp';
 import DeleteButton from './DeleteButton';
 import EditLoanApp from './EditLoanApp';
 import LoanApp from './LoanApp';
+
+import axios from 'axios';
  
 /* Main Component */
 class Main extends Component {
@@ -27,9 +29,9 @@ class Main extends Component {
     }
     componentDidMount() {
         // get info from API
-        fetch('/api/loan-apps')
+        axios.get('/api/loan-apps')
             .then(response => {
-                return response.json();
+                return response.data;
             })
             .then(loanApps => {
                 // Fetched loan app is stored in the state
@@ -56,8 +58,9 @@ class Main extends Component {
     handleAddLoanApp(loanApp) {
      
         /*Fetch API for post request */
-        fetch('/api/loan-apps', {
+        axios({
             method:'post',
+            url: '/api/loan-apps',
             mode: 'cors', 
             cache: 'no-cache', 
             credentials: 'same-origin', 
@@ -66,10 +69,11 @@ class Main extends Component {
                 'Content-Type': 'application/json'
             },
             
-            body: JSON.stringify(loanApp)
+            data: loanApp
         })
         .then(response => {
-            return response.json();
+            console.log('added app', response);
+            return response.data;
         })
         .then( data => {
             //update the state of loanApps and currentLoanApp
@@ -83,7 +87,7 @@ class Main extends Component {
 
     handleDelete() {
         const currentLoanApp = this.state.currentLoanApp;
-        fetch( '/api/loan-apps/' + this.state.currentLoanApp.id, 
+        axios.delete( '/api/loan-apps/' + this.state.currentLoanApp.id, 
             { method: 'delete' })
             .then(response => {
               /* Duplicate the array and filter out the item to be deleted */
@@ -99,7 +103,7 @@ class Main extends Component {
     handleUpdate(loanApp) {
  
         const currentLoanApp = this.state.currentLoanApp;
-        fetch( '/api/loan-apps/' + currentLoanApp.id, {
+        axios.post( '/api/loan-apps/' + currentLoanApp.id, {
             method:'put',
             headers: {
               'Accept': 'application/json',
