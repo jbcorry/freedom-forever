@@ -15,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if (!app()->isLocal()) {
+            URL::forceScheme('https');
+        }
     }
 
     /**
@@ -25,9 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (!app()->isLocal()) {
-            URL::forceScheme('https');
-        }
         Schema::defaultStringLength(191);
     }
 }
