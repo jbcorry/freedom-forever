@@ -16,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         if (!app()->isLocal()) {
+            Log::info('production!!!!!');
             URL::forceScheme('https');
         }
     }
