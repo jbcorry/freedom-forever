@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import CreateLoanApp from './CreateLoanApp';
-import DeleteButton from './DeleteButton';
-import EditLoanApp from './EditLoanApp';
 import LoanApp from './LoanApp';
 
 import axios from 'axios';
@@ -17,15 +14,12 @@ class Main extends Component {
         //Initialize the state
         this.state = {
             loanApps: [],
-            currentLoanApp: null,
-            isShowing: false
+            currentLoanApp: null
         }
 
         this.handleAddLoanApp = this.handleAddLoanApp.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
-        this.openModalHandler = this.openModalHandler.bind(this);
-        this.closeModalHandler = this.closeModalHandler.bind(this);
     }
     componentDidMount() {
         // get info from API
@@ -53,6 +47,7 @@ class Main extends Component {
         this.setState({
             currentLoanApp: loanApp
         });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     handleAddLoanApp(loanApp) {
@@ -72,7 +67,6 @@ class Main extends Component {
             data: loanApp
         })
         .then(response => {
-            console.log('added app', response);
             return response.data;
         })
         .then( data => {
@@ -87,14 +81,12 @@ class Main extends Component {
 
     handleDelete() {
         const currentLoanApp = this.state.currentLoanApp;
-        axios.delete( '/api/loan-apps/' + this.state.currentLoanApp.id, 
-            { method: 'delete' })
+        axios.delete( '/api/loan-apps/' + this.state.currentLoanApp.id )
             .then(response => {
               /* Duplicate the array and filter out the item to be deleted */
               var array = this.state.loanApps.filter(function(item) {
               return item !== currentLoanApp
             });
-          
             this.setState({ loanApps: array, currentLoanApp: null});
         
         });
@@ -103,40 +95,32 @@ class Main extends Component {
     handleUpdate(loanApp) {
  
         const currentLoanApp = this.state.currentLoanApp;
-        axios.post( '/api/loan-apps/' + currentLoanApp.id, {
+        axios({
             method:'put',
+            url: '/api/loan-apps/' + currentLoanApp.id,
+            mode: 'cors', 
+            cache: 'no-cache', 
+            credentials: 'same-origin', 
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify(loanApp)
+            
+            data: loanApp
         })
         .then(response => {
-            return response.json();
-        })
-        .then( data => {
             /* Updating the state */
-            var array = this.state.loanApps.filter(function(item) {
-              return item !== currentLoanApp
-          })
+            const data = response.data;
+            let array = this.state.loanApps.filter(function(data) {
+                return data !== currentLoanApp
+            })
+            array.push(loanApp)
+            const sortedArray = array.sort((a, b) => (a.id > b.id) ? 1 : -1);
             this.setState((prevState)=> ({
-                loanApps: array.concat(loanApp),
+                loanApps: sortedArray,
                 currentLoanApp : loanApp
             }))
         }) 
-    }
-
-    openModalHandler() {
-        console.log('show');
-        this.setState({
-            isShowing: true
-        });
-    }
-
-    closeModalHandler() {
-        this.setState({
-            isShowing: false
-        });
     }
 
     render() {
@@ -149,34 +133,18 @@ class Main extends Component {
         }
         return (
             <div className="container">
-
                 <div className="row">
-                    <div className="col-md-3">
-                        <h3> All Loan Applications </h3>
-                        <ul>
+                    <div className="loan-application-section col-md-4 order-md-1 order-12">
+                        <ul className="list-unstyled">
                             { this.renderLoanApps() }
                         </ul> 
                     </div> 
-                    <div className="col-md-9">
+                    <div className="col-md-8 order-md-12 order-1">
                         <LoanApp 
-                            loanApp={ this.state.currentLoanApp } />
-
-                        <CreateLoanApp 
-                            onAdd={ this.handleAddLoanApp } />
-
-                        <DeleteButton 
-                            deleteFunction={this.handleDelete} 
+                            handleAddLoanApp={ this.handleAddLoanApp }
+                            handleDelete={ this.handleDelete }
+                            handleUpdate={ this.handleUpdate }
                             currentLoanApp={ this.state.currentLoanApp } />
-
-                        {modalButton}
-
-                        <EditLoanApp 
-                            className="modal" 
-                            show={this.state.isShowing}
-                            close={this.closeModalHandler}
-                            onEdit={ this.handleUpdate } 
-                            currentLoanApp={ this.state.currentLoanApp } />
-                            
                     </div>
                 </div>
             </div>

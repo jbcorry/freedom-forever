@@ -1,5 +1,5 @@
 // Body
-$body-bg: #f8fafc;
+$body-bg: #E9E9E9;
 
 // Typography
 $font-family-sans-serif: 'Nunito', sans-serif;
@@ -7,13 +7,84 @@ $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
 // Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66d9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
+$white:    #fff !default;
+$black:    #000 !default;
+$blue:    #3490dc !default;
+$indigo:  #6574cd !default;
+$purple:  #6f42c1 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #FBD77C !default;
+$green:   #3fae2a !default;
+$teal:    #20c997 !default;
+$cyan:    #17a2b8 !default;
+$maroon:  #A03058 !default;
+$turquoise: #79C9B8 !default;
+$gray:    rgb(51,51,51) !default;
+$red:     #DC0032 !default;
+$light-gray: #D9D9D9 !default;
+$dark-gray: #231F20 !default;
+$bright-red: #FF4438 !default;
+$pink:    #f17a96 !default;
+$gray-50:  #F9F9F9 !default;
+$gray-100: #F2F2F2 !default;
+$gray-200: #E9E9E9 !default;
+$gray-300: #D9D9D9 !default;
+$gray-400: #B6B6B6 !default;
+$gray-500: #969696 !default;
+$gray-600: #6E6E6E !default;
+$gray-700: #5A5A5A !default;
+$gray-800: #3B3B3B !default;
+$gray-900: #1B1B1B !default;
+
+$colors: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$colors: map-merge(
+  (
+    "blue":       $blue,
+    "indigo":     $indigo,
+    "purple":     $purple,
+    "pink":       $pink,
+    "red":        $red,
+    "orange":     $orange,
+    "yellow":     $yellow,
+    "green":      $green,
+    "teal":       $teal,
+    "cyan":       $cyan,
+    "white":      $white,
+    "gray":       $gray,
+    "maroon":     $maroon,
+    "turquoise":   $turquoise,
+    "black":      $black,
+    "light-gray":  $light-gray,
+    "dark-gray":  $dark-gray,
+    "bright-red": $bright-red,
+    "gray-50": $gray-50,
+    "gray-100": $gray-100,
+    "gray-200": $gray-200,
+    "gray-300": $gray-300,
+    "gray-400": $gray-400,
+    "gray-500": $gray-500,
+    "gray-600": $gray-600,
+    "gray-700": $gray-700,
+    "gray-800": $gray-800,
+    "gray-900": $gray-900
+  ),
+  $colors
+);
+
+@each $color, $value in $colors {
+  //font-color
+  .#{$color} {
+    color: $value;
+  }
+
+  //bg-color
+  .#{$color}-bg {
+    background-color: $value;
+  }
+
+  //border-color
+  .#{$color}-border {
+    border: 1px solid $value;
+  }
+}

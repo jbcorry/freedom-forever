@@ -8,7 +8,9 @@
         <link href="{{mix('css/app.css')}}" rel="stylesheet" type="text/css">
     </head>
     <body>
-    <h2 style="text-align: center">Loan Application Dashboard</h2>
+        <div class="green-bg white text-center">
+            <h2 class="py-3">Freedom Forever Loan Applications</h2>
+        </div>
         <div id="root"></div>
         <script src="{{mix('js/app.js')}}" ></script>
     </body>

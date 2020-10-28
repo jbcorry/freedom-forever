@@ -21,7 +21,6 @@ class EditLoanApp extends Component {
 
         let state = this.props.currentLoanApp; 
         state[key] = e.target.value;
-        console.log(state);
         this.setState({newLoanApp: state });
     }
 
@@ -32,8 +31,8 @@ class EditLoanApp extends Component {
         /*A call back to the onAdd props. The current
         *state is passed as a param
         */
-        console.log('submitting form', this.state.newLoanApp);
         this.props.onEdit(this.state.newLoanApp);
+        this.props.close();
     }
 
     render() {
@@ -43,39 +42,48 @@ class EditLoanApp extends Component {
             return null;
         }
         return(
-            <div> 
-                <div className="modal-wrapper">
-                    <h2> Edit Loan Application </h2>
-                    <div> 
-                        <form onSubmit={this.handleSubmit}>
-                            <label> First Name: 
-                            { /*On every keystroke, the handeInput method is invoked */ }
-                                <input type="text" placeholder={this.props.currentLoanApp.first_name} onChange={(e)=>this.handleInput('first_name',e)} />
-                            </label>
+            <div className="loan-form"> 
+                <div className="text-center"> 
+                <h2> Edit Loan Application </h2>
+                    <form onSubmit={this.handleSubmit}>
+                        <div className="form-row">
+                            <div className="form-group col-md-6">
+                                <label htmlFor="first-name"> First Name: </label>
+                                <input id="first-name" placeholder={this.props.currentLoanApp.first_name} className="form-control" type="text" onChange={(e)=>this.handleInput('first_name',e)} />
+                            </div>
                             
-                            <label> Last Name: 
-                                <input type="text" placeholder={this.props.currentLoanApp.last_name} onChange={(e)=>this.handleInput('last_name',e)} />
-                            </label>
+                            <div className="form-group col-md-6">
+                                <label> Last Name: </label>
+                                <input id="last-name" placeholder={this.props.currentLoanApp.last_name} className="form-control" type="text" onChange={(e)=>this.handleInput('last_name',e)} />
+                            </div>
+                        </div>
+                        
+                        <div className="form-row">
+                            <div className="form-group col-md-6">
+                                <label htmlFor="email"> Email: </label>
+                                <input id="email" placeholder={this.props.currentLoanApp.email} className="form-control" type="text" onChange={(e)=>this.handleInput('email',e)} />
+                            </div>
 
-                            <label> Email: 
-                                <input type="text" placeholder={this.props.currentLoanApp.email} onChange={(e)=>this.handleInput('email',e)} />
-                            </label>
+                            <div className="form-group col-md-6">
+                                <label htmlFor="phone"> Phone: </label>
+                                <input id="phone" placeholder={this.props.currentLoanApp.phone} className="form-control" type="text" onChange={(e)=>this.handleInput('phone',e)} />  
+                            </div>
+                        </div>
 
-                            <label> Phone: 
-                                <input type="text" placeholder={this.props.currentLoanApp.phone} onChange={(e)=>this.handleInput('phone',e)} />
-                            </label>
+                        <div className="form-row">
+                            <div className="form-group col-md-6">
+                                <label htmlFor="ssn"> SSN: </label>
+                                <input id="ssn" placeholder={this.props.currentLoanApp.ssn} className="form-control" type="password" onChange={(e)=>this.handleInput('ssn',e)} />
+                            </div>
+                            
+                            <div className="form-group col-md-6">
+                                <label htmlFor="credit-score"> Credit Score: </label>
+                                <input id="credit-score" placeholder={this.props.currentLoanApp.credit_score} className="form-control" type="text" onChange={(e)=>this.handleInput('credit_score',e)} />
+                            </div>
+                        </div>
 
-                            <label> SSN: 
-                                <input type="password" placeholder={this.props.currentLoanApp.ssn} onChange={(e)=>this.handleInput('ssn',e)} />
-                            </label>
-
-                            <label> Credit Score: 
-                                <input type="text" placeholder={this.props.currentLoanApp.credit_score} onChange={(e)=>this.handleInput('credit_score',e)} />
-                            </label>
-                                            
-                            <input type="submit" value="Submit" />
-                        </form>
-                    </div>
+                        <button className="btn secondary-cta mt-3">Submit</button>       
+                    </form>
                 </div>
             </div>
         )

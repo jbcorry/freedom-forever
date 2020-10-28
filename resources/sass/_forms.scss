@@ -1,0 +1,11 @@
+.loan-form {
+    margin-top: 50px;
+    padding: 20px;
+    background-color: $green;
+    color: $gray-50;
+    border-radius: 3px;
+    label {
+        float: left;
+        margin-bottom: -4px;
+    }
+}

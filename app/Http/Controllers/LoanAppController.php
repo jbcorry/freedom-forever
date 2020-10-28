@@ -28,6 +28,6 @@ class LoanAppController extends Controller
 
     public function delete(LoanApp $loanApp) {
         $loanApp->delete();
-        return resonse()-json(null, 204);
+        return response()->json(null, 204);
     }
 }

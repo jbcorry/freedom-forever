@@ -21,7 +21,7 @@ class CreateLoanApp extends Component {
         this.handleInput = this.handleInput.bind(this);
     }
 
-      /* This method dynamically accepts inputs and stores it in the state */
+    /* This method dynamically accepts inputs and stores it in the state */
     handleInput(key, e) {
         
         /*Duplicating and updating the state */
@@ -37,43 +37,56 @@ class CreateLoanApp extends Component {
         /*A call back to the onAdd props. The current
         *state is passed as a param
         */
-        console.log('submitting form', this.state.newLoanApp);
         this.props.onAdd(this.state.newLoanApp);
+        this.props.close();
     }
 
     render() {
-         
+        if (!this.props.show) {
+            return null;
+        } 
         return(
-            <div> 
+            <div className="loan-form"> 
                 <h2> Create a new Loan Application </h2>
-                <div> 
+                <div className="text-center"> 
                     <form onSubmit={this.handleSubmit}>
-                        <label> First Name: 
-                        { /*On every keystroke, the handeInput method is invoked */ }
-                            <input type="text" onChange={(e)=>this.handleInput('first_name',e)} />
-                        </label>
+                        <div className="form-row">
+                            <div className="form-group col-md-6">
+                                <label htmlFor="first-name"> First Name: </label>
+                                <input id="first-name" className="form-control" type="text" onChange={(e)=>this.handleInput('first_name',e)} />
+                            </div>
+                            
+                            <div className="form-group col-md-6">
+                                <label> Last Name: </label>
+                                <input id="last-name" className="form-control" type="text" onChange={(e)=>this.handleInput('last_name',e)} />
+                            </div>
+                        </div>
                         
-                        <label> Last Name: 
-                            <input type="text" onChange={(e)=>this.handleInput('last_name',e)} />
-                        </label>
+                        <div className="form-row">
+                            <div className="form-group col-md-6">
+                                <label htmlFor="email"> Email: </label>
+                                <input id="email" className="form-control" type="text" onChange={(e)=>this.handleInput('email',e)} />
+                            </div>
 
-                        <label> Email: 
-                            <input type="text" onChange={(e)=>this.handleInput('email',e)} />
-                        </label>
+                            <div className="form-group col-md-6">
+                                <label htmlFor="phone"> Phone: </label>
+                                <input id="phone" className="form-control" type="text" onChange={(e)=>this.handleInput('phone',e)} />  
+                            </div>
+                        </div>
 
-                        <label> Phone: 
-                            <input type="text" onChange={(e)=>this.handleInput('phone',e)} />
-                        </label>
+                        <div className="form-row">
+                            <div className="form-group col-md-6">
+                                <label htmlFor="ssn"> SSN: </label>
+                                <input id="ssn" className="form-control" type="password" onChange={(e)=>this.handleInput('ssn',e)} />
+                            </div>
+                            
+                            <div className="form-group col-md-6">
+                                <label htmlFor="credit-score"> Credit Score: </label>
+                                <input id="credit-score" className="form-control" type="text" onChange={(e)=>this.handleInput('credit_score',e)} />
+                            </div>
+                        </div>
 
-                        <label> SSN: 
-                            <input type="password" onChange={(e)=>this.handleInput('ssn',e)} />
-                        </label>
-
-                        <label> Credit Score: 
-                            <input type="text" onChange={(e)=>this.handleInput('credit_score',e)} />
-                        </label>
-                                        
-                        <input type="submit" value="Submit" />
+                        <button className="btn secondary-cta mt-3">Submit</button>       
                     </form>
                 </div>
             </div>
