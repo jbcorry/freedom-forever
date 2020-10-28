@@ -48,6 +48,7 @@ button {
 .loan-app-info {
     margin-top: 20px;
     border-radius: 3px;
+    border: 1px solid $gray-600;
     background-color: $white;
     padding: 25px;
 }
@@ -65,4 +66,31 @@ button {
     border-top: 3px solid $dark-gray;
     padding-top: 30px;
     padding-bottom: 30px;
+}
+
+.loan-application-section {
+    @media screen and (min-width: 768px) {
+        max-height: 90vh;
+    }
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.search-wrapper {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.search-input {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid $blue;
+    border-radius: 3px;
+    background-color: $gray-200;
+    &:focus {
+        background-color: $white;
+        border: 1px solid $yellow;
+        outline: none;
+    }
 }

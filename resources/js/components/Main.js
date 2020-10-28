@@ -4,22 +4,44 @@ import ReactDOM from 'react-dom';
 import LoanApp from './LoanApp';
 
 import axios from 'axios';
- 
+
+import Fuse from 'fuse.js';
+
+const keys = {
+    FIRST_NAME: "first_name",
+    LAST_NAME: "last_name",
+    EMAIL: "email",
+    PHONE: "phone",
+};
+
+const { FIRST_NAME, LAST_NAME, EMAIL, PHONE } = keys;
+
+const fuseOptions = {
+    shouldSort: true,
+    threshold: 0.4,
+    location: 0,
+    distance: 50,
+    maxPatternLength: 12,
+    minMatchCharLength: 3,
+    keys: [FIRST_NAME, LAST_NAME, EMAIL, PHONE]
+};
+
 /* Main Component */
 class Main extends Component {
- 
+
     constructor() {
-    
         super();
         //Initialize the state
         this.state = {
             loanApps: [],
-            currentLoanApp: null
+            currentLoanApp: null,
+            query: ""
         }
 
         this.handleAddLoanApp = this.handleAddLoanApp.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+        this.onSearch = this.onSearch.bind(this);
     }
     componentDidMount() {
         // get info from API
@@ -34,7 +56,15 @@ class Main extends Component {
     }
  
     renderLoanApps() {
-        return this.state.loanApps.map(loanApp => {
+        const fuse = new Fuse (this.state.loanApps, fuseOptions);
+        let results;
+        if (this.state.query) {
+            results = fuse.search(this.state.query);
+            results = results.map(loanApp => loanApp.item);
+        } else {
+            results = this.state.loanApps;
+        }
+        return results.map(loanApp => {
             return (
                 <li key={loanApp.id} onClick={ () => this.handleClick(loanApp) }>
                     { loanApp.first_name } { loanApp.last_name } 
@@ -123,7 +153,14 @@ class Main extends Component {
         }) 
     }
 
+    onSearch({ currentTarget = {} }) {
+        this.setState((prevState)=> ({
+            query: currentTarget.value
+        }))
+      }
+
     render() {
+
         let currentLoanApp = {first_name:'',last_name:'',ssn:'',email:'',phone:'',credit_score:''};
         let modalButton;
         if (this.state.currentLoanApp) {
@@ -135,6 +172,9 @@ class Main extends Component {
             <div className="container">
                 <div className="row">
                     <div className="loan-application-section col-md-4 order-md-1 order-12">
+                        <div className="form-group search-wrapper">
+                            <input placeholder="Search by first name, last name, email or phone" className="search-input" type="text" value={this.state.query} onChange={this.onSearch} />
+                        </div>
                         <ul className="list-unstyled">
                             { this.renderLoanApps() }
                         </ul> 
