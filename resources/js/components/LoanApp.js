@@ -27,27 +27,29 @@ class LoanApp extends Component {
   }
 
   openModalHandler() {
-      this.setState({
-          isShowing: true
-      });
+    this.setState({
+      updateIsShowing: false,
+      isShowing: true
+    });
   }
 
   closeModalHandler() {
-      this.setState({
-          isShowing: false
-      });
+    this.setState({
+        isShowing: false
+    });
   }
 
   openUpdateModalHandler() {
     this.setState({
+        isShowing: false,
         updateIsShowing: true
     });
   }
 
   closeUpdateModalHandler() {
-      this.setState({
-          updateIsShowing: false
-      });
+    this.setState({
+        updateIsShowing: false
+    });
   }
   render() {
     //if the props loan app is null, return loan application doesn't exist

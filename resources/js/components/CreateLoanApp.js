@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import InputMask from 'react-input-mask';
+
 class CreateLoanApp extends Component {
 
     constructor(props) {
@@ -65,12 +67,12 @@ class CreateLoanApp extends Component {
                         <div className="form-row">
                             <div className="form-group col-md-6">
                                 <label htmlFor="email"> Email: </label>
-                                <input id="email" className="form-control" type="text" onChange={(e)=>this.handleInput('email',e)} />
+                                <input id="email" className="form-control" type="email" onChange={(e)=>this.handleInput('email',e)} />
                             </div>
 
                             <div className="form-group col-md-6">
                                 <label htmlFor="phone"> Phone: </label>
-                                <input id="phone" className="form-control" type="text" onChange={(e)=>this.handleInput('phone',e)} />  
+                                <InputMask mask="999 999 9999" maskChar='' id="phone" className="form-control"  type="text" onChange={(e)=>this.handleInput('phone',e)} />  
                             </div>
                         </div>
 
