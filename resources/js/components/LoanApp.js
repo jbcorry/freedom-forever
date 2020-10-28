@@ -27,7 +27,6 @@ class LoanApp extends Component {
   }
 
   openModalHandler() {
-      console.log('show');
       this.setState({
           isShowing: true
       });
@@ -40,7 +39,6 @@ class LoanApp extends Component {
   }
 
   openUpdateModalHandler() {
-    console.log('showing update');
     this.setState({
         updateIsShowing: true
     });
